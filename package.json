@@ -1,0 +1,14 @@
+{
+  "name": "personal-management-presentacion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Presentación interactiva estática: API REST con Node.js, Express y MySQL + frontend con Atomic Design.",
+  "scripts": {
+    "start": "node tools/serve.js",
+    "build:code": "node tools/build-code-files.js",
+    "check:code": "node tools/build-code-files.js --check"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

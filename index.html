@@ -1,0 +1,103 @@
+<!doctype html>
+<!--
+  Personal Management · Presentación interactiva
+  =====================================================================
+  FUNCIONA CON DOBLE CLIC (file://), CON UN SERVIDOR LOCAL (npm start)
+  Y PUBLICADA (GitHub Pages, Vercel). Mismo código en los tres casos.
+  Sin build, sin CDN y sin una sola petición de red externa.
+  Todas las rutas son RELATIVAS: no las vuelvas absolutas (/css/...), o se
+  rompe al publicar en una subruta como usuario.github.io/repo/.
+
+  Por eso usamos <script> clásicos con IIFE y variables globales, y NO
+  módulos ES: los módulos están bloqueados en file:// por la política
+  de mismo origen.
+
+  Orden de los scripts (importa):
+    three  → highlight  → code-files  → slides  → scene  → app
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Presentación interactiva: construye paso a paso una API REST con Node.js, Express y MySQL, y un frontend vanilla con Atomic Design." />
+    <title>Personal Management · Presentación paso a paso</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='20'%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Lienzo de fondo: campo de puntos y conexiones del diagrama. -->
+    <canvas id="scene-back" class="scene" aria-hidden="true"></canvas>
+
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">Personal Management</span>
+          <nav id="crumbs" class="crumbs" aria-label="Ubicación"></nav>
+        </div>
+        <div class="top-actions">
+          <span id="counter" class="counter" aria-live="polite">Portada</span>
+          <button id="btn-index" class="icon-btn" type="button" aria-label="Abrir el índice" title="Índice (tecla i)"></button>
+          <button id="btn-theme" class="icon-btn" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema"></button>
+        </div>
+      </header>
+
+      <div class="progress"><div id="progress-bar"></div></div>
+
+      <div class="pipeline-wrap">
+        <span class="pipeline-label">Recorrido de una petición</span>
+        <div id="pipeline" role="img" aria-label="Diagrama del recorrido de una petición: Cliente, Express, routes, controllers, services, models y MySQL, con las capas transversales utils y middleware."></div>
+      </div>
+
+      <main id="stage" class="stage"></main>
+
+      <footer id="narrator" class="narrator">
+        <div id="bit-slot" class="bit-slot">
+          <button id="bit-hit" type="button" aria-label="Saludar a Bit"></button>
+          <!-- Robot de respaldo: se usa si WebGL no está disponible. -->
+          <svg class="bit-fallback" viewBox="0 0 58 68" aria-hidden="true">
+            <ellipse class="fb-shadow" cx="29" cy="64" rx="15" ry="3" />
+            <rect class="fb-body" x="14" y="34" width="30" height="26" rx="9" />
+            <circle class="fb-accent" cx="29" cy="47" r="3.2" />
+            <rect class="fb-body" x="9"  y="30" width="40" height="28" rx="11" />
+            <rect class="fb-screen" x="15" y="36" width="28" height="16" rx="7" />
+            <rect class="fb-eye" x="20" y="41" width="5" height="6" rx="2.5" />
+            <rect class="fb-eye" x="33" y="41" width="5" height="6" rx="2.5" />
+            <line class="fb-antenna" x1="29" y1="30" x2="29" y2="20" />
+            <circle class="fb-accent" cx="29" cy="17" r="4" />
+          </svg>
+        </div>
+        <div id="bubble" class="bubble">
+          <p id="bubble-title" class="bubble-title">Punto clave</p>
+          <p id="bubble-text" class="bubble-text" aria-live="polite"></p>
+        </div>
+        <nav class="nav" aria-label="Navegación entre diapositivas">
+          <button id="btn-prev" class="btn" type="button">Anterior</button>
+          <button id="btn-next" class="btn btn-primary" type="button">Siguiente</button>
+        </nav>
+      </footer>
+    </div>
+
+    <!-- Lienzo frontal: la mascota Bit, los paquetes y el confeti. -->
+    <canvas id="scene-front" class="scene"></canvas>
+
+    <div id="index" class="index-overlay" hidden>
+      <div class="index-panel" role="dialog" aria-modal="true" aria-labelledby="index-title">
+        <header class="index-head">
+          <h2 id="index-title">Índice</h2>
+          <button id="btn-close-index" class="icon-btn" type="button" aria-label="Cerrar el índice"></button>
+        </header>
+        <div id="index-body" class="index-body"></div>
+      </div>
+    </div>
+
+    <script src="vendor/three.min.js"></script>
+    <script src="vendor/highlight.min.js"></script>
+    <script src="js/code-files.js"></script>
+    <script src="js/slides.js"></script>
+    <script src="js/scene.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
